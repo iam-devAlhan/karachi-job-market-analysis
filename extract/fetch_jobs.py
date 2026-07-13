@@ -26,12 +26,14 @@ roles = [
     "devops/cloud roles in karachi",
     "cybersecurity roles in karachi",
     "sap consultant roles in karachi",
-    "odoo technical roles in karachi"
+    "odoo technical roles in karachi",
+    "sqa/qa automation roles in karachi"
 ]
 
 def fetch_data() -> list:
     jobs = []
     for role in roles:
+        time.sleep(1.0)
         params = {
             "query":role,
             "page":"1",
@@ -60,7 +62,7 @@ def fetch_data() -> list:
                 "apply_link": job.get("job_apply_link")
             })
 
-    time.sleep(1.0)
+    
     return jobs
 
 
@@ -68,10 +70,10 @@ all_jobs = []
 start_time = time.perf_counter()
 print(f"-> Starting job for Fetching Jobs Data")
 jobs_data = fetch_data()
-all_jobs.append(jobs_data)
+all_jobs.extend(jobs_data)
 
 
-with open(f"raw_jobs_{datetime.now().strftime('%Y%m%d')}.json", "w") as f:
+with open(f"raw_jobs_{datetime.now().strftime('%Y-%m-%d')}.json", "w") as f:
     json.dump(all_jobs, f, indent=2, default=str)
 
 print("-> Raw Data Saved!")
