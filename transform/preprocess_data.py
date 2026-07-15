@@ -1,17 +1,10 @@
-import json
 import logging
 import pandas as pd
 import hashlib
 from extract.fetch_jobs import get_job_data
 from datetime import datetime
 
-logger = logging.getLogger("__name__")
-
-try:
-    jobs_data = get_job_data()
-except Exception as e:
-    logger.error(f"Exception occured due to {e}")
-    raise
+logger = logging.getLogger(__name__)
 
 def extract_seniority(title: str) -> str:
     if not title:
@@ -71,39 +64,45 @@ def generate_job_id(title: str, company: str, location: str, date_posted: str) -
     
     return job_id
 
+def get_transformed_data() -> pd.DataFrame:
+    try:
+        jobs_data = get_job_data()
+    except Exception as e:
+        logger.error(f"Exception occured due to {e}")
+        raise
 
-df = pd.DataFrame(jobs_data)
-df.drop(['salary_min', 'salary_max'], axis=1, inplace=True)
-df['date_posted'] = pd.to_datetime(df['date_posted'], errors='coerce')
-df['date_posted'] = df['date_posted'].dt.tz_localize(None)
-df['date_posted'] = df['date_posted'].astype('datetime64[ns]')
-df['date_posted_month'] = df['date_posted'].dt.month
-df['date_posted_year'] = df['date_posted'].dt.year
-df['seniority'] = df["title"].apply(extract_seniority)
-df['job_type'] = df["title"].apply(extract_job_type)
-df['load_date'] = datetime.now()
-df['job_id'] = df.apply(
-    lambda row: generate_job_id(row['title'], row['company'], row['location'], row['date_posted']),
-    axis=1
-)
+    df = pd.DataFrame(jobs_data)
+    df.drop(['salary_min', 'salary_max'], axis=1, inplace=True)
+    df['date_posted'] = pd.to_datetime(df['date_posted'], errors='coerce')
+    df['date_posted'] = df['date_posted'].dt.tz_localize(None)
+    df['date_posted'] = df['date_posted'].astype('datetime64[ns]')
+    df['date_posted_month'] = df['date_posted'].dt.month
+    df['date_posted_year'] = df['date_posted'].dt.year
+    df['seniority'] = df["title"].apply(extract_seniority)
+    df['job_type'] = df["title"].apply(extract_job_type)
+    df['load_date'] = datetime.now()
+    df['job_id'] = df.apply(
+        lambda row: generate_job_id(row['title'], row['company'], row['location'], row['date_posted']),
+        axis=1
+    )
 
-final_col_order = [
-    "job_id",
-    "title",
-    "job_type",
-    "company",
-    "location",
-    "country",
-    "employment_type",
-    "date_posted",
-    "date_posted_month",
-    "date_posted_year",
-    "is_remote",
-    "seniority",
-    "apply_link",
-    "description",
-    "load_date"
-]
+    final_col_order = [
+        "job_id",
+        "title",
+        "job_type",
+        "company",
+        "location",
+        "country",
+        "employment_type",
+        "date_posted",
+        "date_posted_month",
+        "date_posted_year",
+        "is_remote",
+        "seniority",
+        "apply_link",
+        "load_date"
+    ]
 
-df_final = df[final_col_order]
-df_final = df_final.drop_duplicates("job_id", keep="last")
+    df_final = df[final_col_order]
+    df_final = df_final.drop_duplicates("job_id", keep="last")
+    return df_final
