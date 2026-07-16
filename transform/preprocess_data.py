@@ -51,12 +51,12 @@ def extract_job_type(title: str) -> str:
         return "unspecified"
 
 
-def generate_job_id(title: str, company: str, location: str, date_posted: str) -> str:
+def generate_job_id(title: str, company: str, location: str, date_posted: str, apply_link: str) -> str:
     """
     Generate a unique job ID based on key attributes.
     """
     # Create a unique string from the job's attributes
-    unique_string = f"{title}_{company}_{location}_{date_posted}"
+    unique_string = f"{title}_{company}_{location}_{date_posted}_{apply_link}"
     
     # Generate a SHA-256 hash
     hash_object = hashlib.sha256(unique_string.encode())
@@ -82,7 +82,7 @@ def get_transformed_data() -> pd.DataFrame:
     df['job_type'] = df["title"].apply(extract_job_type)
     df['load_date'] = datetime.now()
     df['job_id'] = df.apply(
-        lambda row: generate_job_id(row['title'], row['company'], row['location'], row['date_posted']),
+        lambda row: generate_job_id(row['title'], row['company'], row['location'], row['date_posted'], row['apply_link']),
         axis=1
     )
 
