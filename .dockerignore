@@ -1,0 +1,7 @@
+*.json
+*.git
+*.gitignore
+.env
+__pycache__
+env/
+venv/
