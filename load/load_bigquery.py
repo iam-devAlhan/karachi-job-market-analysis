@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 project_id = os.getenv("PROJECT_ID")
 dataset_id = os.getenv("DATASET_ID")
 table_id = f"{project_id}.{dataset_id}.staging_jobs"
-google_app_credentials = os.getenv("GOOGLE_APP_CREDENTIALS")
+google_app_credentials = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
 
 if not project_id:
     raise EnvironmentError("Project ID not configured")
