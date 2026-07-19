@@ -47,13 +47,13 @@ def fetch_jobs_for_role(role: str) -> list:
     params = {
         "query": role,
         "page": "1",
-        "num_pages": "2",
+        "num_pages": "1",
         "country": "pk",
         "date_posted": "all"
     }
     
     try:
-        response = requests.get(URL, headers=HEADERS, params=params, timeout=30)
+        response = requests.get(URL, headers=HEADERS, params=params, timeout=60)
         response.raise_for_status()
         data = response.json()
     except requests.exceptions.HTTPError as e:
