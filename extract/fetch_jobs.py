@@ -47,7 +47,7 @@ def fetch_jobs_for_role(role: str) -> list:
     params = {
         "query": role,
         "page": "1",
-        "num_pages": "1",
+        "num_pages": "2",
         "country": "pk",
         "date_posted": "all"
     }
