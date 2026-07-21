@@ -4,13 +4,10 @@ A Data Engineering project that collects job market data from the JSearch API, t
 
 ## Project Goal
 
-The purpose of this project is to analyze the Karachi tech job market by answering questions such as:
+The purpose of this project was to just analyze two things:
 
-- Which technology roles are currently in demand?
-- Which companies are hiring the most?
-- What is the ratio of Senior, Mid, Junior, and Internship roles?
-- Which technologies should students focus on learning?
-- How is the hiring market changing over time?
+- Which technology roles are currently opened and mostly hiring?
+- What happened to job ratio for Senior, Mid, Junior, and Internship roles?
 
 ---
 
