@@ -1,4 +1,4 @@
-# Karachi Job Market Analysis
+# Karachi Tech Job ETL Pipeline
 
 A Data Engineering project that collects job market data from the JSearch API, transforms it, and loads it into Google BigQuery for analysis.
 
@@ -36,11 +36,6 @@ karachi-job-market-analysis/
 │
 ├── load/
 │   ├── load_bigquery.py
-│   └── merge_bigquery.py
-│
-├── sql/
-│   ├── views/
-│   └── analysis/
 │
 ├── main.py
 ├── requirements.txt
@@ -64,15 +59,7 @@ Transform
       │
       ▼
 BigQuery Staging
-      │
-      ▼
-BigQuery Production
-      │
-      ▼
-SQL Views
-      │
-      ▼
-Google Sheets Dashboard
+
 ```
 
 ---
@@ -96,9 +83,9 @@ Google Sheets Dashboard
 ### Clone the repository
 
 ```bash
-git clone https://github.com/iam-devAlhan/karachi-job-market-analysis.git
+git clone https://github.com/iam-devAlhan/karachi-tech-jobs-etl-pipeline.git
 
-cd karachi-job-market-analysis
+cd karachi-tech-jobs-etl-pipeline
 ```
 
 ### Install dependencies
@@ -117,7 +104,6 @@ DATASET_ID=
 RAPID_API_KEY=
 RAPID_API_HOST=
 GOOGLE_APPLICATION_CREDENTIALS=
-NUM_PAGES=2
 ```
 
 ---
@@ -168,9 +154,3 @@ karachi-job-pipeline
 - CI/CD
 - Unit Testing
 - Monitoring and Logging
-
----
-
-## License
-
-MIT License
